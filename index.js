@@ -16,6 +16,8 @@ J2M.prototype.jira_to_html = function(str) {
 
 J2M.prototype.to_markdown = function(str) {
     return str
+        // convert to unix eol
+        .replace(/\r\n/g, '\n')
         // Ordered Lists
         .replace(/^[ \t]*(\*+)\s+/gm, function(match, stars) {
             return Array(stars.length).join(" ") + '* ';
@@ -42,6 +44,8 @@ J2M.prototype.to_markdown = function(str) {
         .replace(/\^([^^]*)\^/g, '<sup>$1</sup>')
         // Subscript
         .replace(/~([^~]*)~/g, '<sub>$1</sub>')
+        // horizontal line: reduce to 3 dashes to avoid hitting strikethrough rule
+        .replace(/^\-{3,}$/gm, '---')
         // Strikethrough
         .replace(/-(\S+.*?\S)-/g, '~~$1~~')
         // Code Block
