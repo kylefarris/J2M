@@ -126,7 +126,7 @@ J2M.prototype.to_jira = function(str) {
         // Single Paragraph Blockquote
         .replace(/^>/gm, 'bq.')
         // tables
-        .replace(/^\n((?:\|.*?)+\|)[ \t]*\n((?:\|\s*?\-{3,}\s*?)+\|)[ \t]*\n((?:(?:\|.*?)+\|[ \t]*\n)*)$/gm,
+        .replace(/^\r?\n((?:\|.*?)+\|)[ \t]*\r?\n((?:\|\s*?\-{3,}\s*?)+\|)[ \t]*\r?\n((?:(?:\|.*?)+\|[ \t]*\r?\n)*)$/gm,
                  function (match, headerLine, separatorLine, rowstr) {
                      var headers = headerLine.match(/[^|]+(?=\|)/g);
                      var separators = separatorLine.match(/[^|]+(?=\|)/g);
