@@ -107,4 +107,12 @@ describe('to_markdown', function() {
         var markdown = j2m.to_markdown("A text with{color:blue} blue \n lines {color} is not necessary.");
         markdown.should.eql("A text with blue \n lines  is not necessary.");
     });
+    it('should handle DOS eol', function() {
+        var markdown = j2m.to_markdown("{panel:title=A title}\r\nPanel text\r\n{panel}\r\n");
+        markdown.should.eql("\n| A title |\n| --- |\n| Panel text |\n");
+    });
+    it('should handle multi-dash horizontal lines', function() {
+        var markdown = j2m.to_markdown("-----\n");
+        markdown.should.eql("---\n");
+    });
 });
