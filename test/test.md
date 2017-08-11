@@ -12,6 +12,7 @@
 **strong**
 *emphasis*
 `monospaced`
+<cite>citation</cite>
 ~~deleted~~
 <ins>inserted</ins>
 <sup>superscript</sup>
