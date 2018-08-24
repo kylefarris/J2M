@@ -23,13 +23,13 @@ describe('to_jira', function() {
         var jira = j2m.to_jira('`monospaced`');
         jira.should.eql('{{monospaced}}');
     });
-    it('should convert citations properly', function() {
-        var jira = j2m.to_jira('<cite>citation</cite>');
-        jira.should.eql('??citation??');
-    });
+    // it('should convert citations properly', function() {
+    //     var jira = j2m.to_jira('<cite>citation</cite>');
+    //     jira.should.eql('??citation??');
+    // });
     it('should convert strikethroughs properly', function() {
-        var jira = j2m.to_jira('~~deleted~~');
-        jira.should.eql('-deleted-');
+        var jira = j2m.to_jira(' ~~deleted~~ ');
+        jira.should.eql(' -deleted- ');
     });
     it('should convert inserts properly', function() {
         var jira = j2m.to_jira('<ins>inserted</ins>');
@@ -50,6 +50,18 @@ describe('to_jira', function() {
     it('should convert language-specific code blocks properly', function() {
         var jira = j2m.to_jira("```javascript\nvar hello = 'world';\n```");
         jira.should.eql("{code:javascript}\nvar hello = 'world';\n{code}");
+    });
+    it('should convert unnamed images properly', function() {
+        var jira = j2m.to_jira("![](http://google.com/image)");
+        jira.should.eql("!http://google.com/image!");
+    });
+    it('should convert named images properly', function() {
+        var jira = j2m.to_jira("![Google](http://google.com/image)");
+        jira.should.eql("!http://google.com/image!");
+    });
+    it('should convert linked images properly', function() {
+        var jira = j2m.to_jira("[![Google](http://google.com/image)](http://google.com/link)");
+        jira.should.eql("[!http://google.com/image!|http://google.com/link]");
     });
     it('should convert unnamed links properly', function() {
         var jira = j2m.to_jira("<http://google.com>");

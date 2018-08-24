@@ -43,13 +43,15 @@ J2M.prototype.to_markdown = function(str) {
         // Subscript
         .replace(/~([^~]*)~/g, '<sub>$1</sub>')
         // Strikethrough
-        .replace(/\s+-(\S+.*?\S)-\s+/g, ' ~~$1~~ ')
+        .replace(/(\s+)-(\S+.*?\S)-(\s+)/g, '$1~~$2~~$3')
         // Code Block
         .replace(/\{code(:([a-z]+))?([:|]?(title|borderStyle|borderColor|borderWidth|bgColor|titleBGColor)=.+?)*\}([^]*)\{code\}/gm, '```$2$5```')
         // Pre-formatted text
         .replace(/{noformat}/g, '```')
         // Un-named Links
         .replace(/\[([^|]+)\]/g, '<$1>')
+        // Images
+        .replace(/!(.+)!/g, '![]($1)')
         // Named Links
         .replace(/\[(.+?)\|(.+)\]/g, '[$1]($2)')
         // Single Paragraph Blockquote
@@ -110,7 +112,7 @@ J2M.prototype.to_jira = function(str) {
             return to + content + to;
         })
         // Other kind of strikethrough
-        .replace(/\s+~~(.*?)~~\s+/g, ' -$1- ')
+        .replace(/(\s+)~~(.*?)~~(\s+)/g, '$1-$2-$3')
         // Named/Un-Named Code Block
         .replace(/`{3,}(\w+)?((?:\n|[^`])+)`{3,}/g, function(match, synt, content) {
             var code = '{code';
@@ -119,6 +121,8 @@ J2M.prototype.to_jira = function(str) {
         })
         // Inline-Preformatted Text
         .replace(/`([^`]+)`/g, '{{$1}}')
+        // Images
+        .replace(/!\[[^\]]*\]\(([^)]+)\)/g, '!$1!')
         // Named Link
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '[$1|$2]')
         // Un-Named Link

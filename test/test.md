@@ -12,7 +12,6 @@
 **strong**
 *emphasis*
 `monospaced`
-<cite>citation</cite>
 ~~deleted~~
 <ins>inserted</ins>
 <sup>superscript</sup>
@@ -21,6 +20,9 @@
 ```javascript
 var hello = 'world';
 {code}
+
+![](http://google.com/image)
+[![](http://google.com/image)](http://google.com/link)
 
 <http://google.com>
 [Google](http://google.com)

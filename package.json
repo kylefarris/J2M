@@ -15,7 +15,8 @@
   "description": "JIRA to MarkDown text format converter.",
   "main": "index.js",
   "devDependencies": {
-    "chai": "^3.3.0"
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
   },
   "scripts": {
     "test": "make test"
@@ -27,6 +28,6 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "marked": "^0.3.5"
+    "marked": "^0.5.0"
   }
 }
