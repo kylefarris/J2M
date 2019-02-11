@@ -114,10 +114,12 @@ J2M.prototype.to_jira = function(str) {
         // Other kind of strikethrough
         .replace(/(\s+)~~(.*?)~~(\s+)/g, '$1-$2-$3')
         // Named/Un-Named Code Block
-        .replace(/`{3,}(\w+)?((?:\n|[^`])+)`{3,}/g, function(match, synt, content) {
-            var code = '{code';
-            if (synt) code += ':' + synt;
-            return code + '}' + content + '{code}';
+        .replace(/```(.+\n)?((?:.|\n)*?)```/g, function(match, synt, content) {
+            var code = '{code}';
+            if (synt) {
+                code = '{code:' + synt.replace(/\n/g, '') + "}\n";
+            }
+            return code + content + '{code}';
         })
         // Inline-Preformatted Text
         .replace(/`([^`]+)`/g, '{{$1}}')
