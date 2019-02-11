@@ -12,7 +12,6 @@ h6. Smallest heading
 *strong*
 _emphasis_
 {{monospaced}}
-??citation??
 -deleted-
 +inserted+
 ^superscript^
@@ -21,6 +20,9 @@ _emphasis_
 {code:javascript}
 var hello = 'world';
 {code}
+
+!http://google.com/image!
+[!http://google.com/image!|http://google.com/link]
 
 [http://google.com]
 [Google|http://google.com]
