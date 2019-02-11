@@ -28,8 +28,8 @@ describe('to_markdown', function() {
     //    markdown.should.eql('<cite>citation</cite>');
     //});
     it('should convert strikethroughs properly', function() {
-        var markdown = j2m.to_markdown('-deleted-');
-        markdown.should.eql('~~deleted~~');
+        var markdown = j2m.to_markdown(' -deleted- ');
+        markdown.should.eql(' ~~deleted~~ ');
     });
     it('should convert inserts properly', function() {
         var markdown = j2m.to_markdown('+inserted+');
@@ -68,6 +68,14 @@ describe('to_markdown', function() {
             + "\n        <another tag=\"attribute\"/>"
             + "\n    </test>"
             + "\n```");
+    });
+    it('should convert images properly', function() {
+        var markdown = j2m.to_markdown("!http://google.com/image!");
+        markdown.should.eql("![](http://google.com/image)");
+    });
+    it('should convert linked images properly', function() {
+        var markdown = j2m.to_markdown("[!http://google.com/image!|http://google.com/link]");
+        markdown.should.eql("[![](http://google.com/image)](http://google.com/link)");
     });
     it('should convert unnamed links properly', function() {
         var markdown = j2m.to_markdown("[http://google.com]");
