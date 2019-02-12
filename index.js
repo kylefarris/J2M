@@ -80,6 +80,24 @@ J2M.prototype.to_jira = function(str) {
     };
 
     return str
+        // tables
+        .replace(/^\n((?:\|.*?)+\|)[ \t]*\n((?:\|\s*?\-{3,}\s*?)+\|)[ \t]*\n((?:(?:\|.*?)+\|[ \t]*\n)*)$/gm,
+        function (match, headerLine, separatorLine, rowstr) {
+            var headers = headerLine.match(/[^|]+(?=\|)/g);
+            var separators = separatorLine.match(/[^|]+(?=\|)/g);
+            if (headers.length !== separators.length) {
+                return match;
+            }
+            var rows = rowstr.split('\n');
+            if (rows.length === 1 + 1 && headers.length === 1) {
+                // panel
+                return '{panel:title=' + headers[0].trim() + '}\n' +
+                    rowstr.replace(/^\|(.*)[ \t]*\|/, '$1').trim() +
+                    '\n{panel}\n';
+            } else {
+                return '||' + headers.join('||') + '||\n' + rowstr;
+            }
+        })
         // Bold, Italic, and Combined (bold+italic)
         .replace(/([*_]+)(\S.*?)\1/g, function (match,wrapper,content) {
             switch (wrapper.length) {
@@ -130,25 +148,8 @@ J2M.prototype.to_jira = function(str) {
         // Un-Named Link
         .replace(/<([^>]+)>/g, '[$1]')
         // Single Paragraph Blockquote
-        .replace(/^>/gm, 'bq.')
-        // tables
-        .replace(/^\n((?:\|.*?)+\|)[ \t]*\n((?:\|\s*?\-{3,}\s*?)+\|)[ \t]*\n((?:(?:\|.*?)+\|[ \t]*\n)*)$/gm,
-                 function (match, headerLine, separatorLine, rowstr) {
-                     var headers = headerLine.match(/[^|]+(?=\|)/g);
-                     var separators = separatorLine.match(/[^|]+(?=\|)/g);
-                     if (headers.length !== separators.length) {
-                         return match;
-                     }
-                     var rows = rowstr.split('\n');
-                     if (rows.length === 1 + 1 && headers.length === 1) {
-                         // panel
-                         return '{panel:title=' + headers[0].trim() + '}\n' +
-                             rowstr.replace(/^\|(.*)[ \t]*\|/, '$1').trim() +
-                             '\n{panel}\n';
-                     } else {
-                         return '||' + headers.join('||') + '||\n' + rowstr;
-                     }
-                 });
+        .replace(/^>/gm, 'bq.');
+        
 
 };
 
