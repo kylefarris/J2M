@@ -51,7 +51,7 @@ J2M.prototype.to_markdown = function(str) {
         // Un-named Links
         .replace(/\[([^|]+)\]/g, '<$1>')
         // Named Links
-        .replace(/\[(.+?)\|(.+)\]/g, '[$1]($2)')
+        .replace(/\[(.+?)\|(.+?)\]/g, '[$1]($2)')
         // Single Paragraph Blockquote
         .replace(/^bq\.\s+/gm, '> ')
         // Remove color: unsupported in md
