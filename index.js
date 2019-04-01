@@ -43,7 +43,7 @@ J2M.prototype.to_markdown = function(str) {
         // Subscript
         .replace(/~([^~]*)~/g, '<sub>$1</sub>')
         // Strikethrough
-        .replace(/(?!-)?-([^\-\s]+.*?[^\-\s])-/g, '~~$1~~')
+        .replace(/(?!-)?-(\w+.*?\w)-(?=\s|$)/g, '~~$1~~')
         // Code Block
         .replace(/\{code(:([a-z]+))?([:|]?(title|borderStyle|borderColor|borderWidth|bgColor|titleBGColor)=.+?)*\}([^]*)\{code\}/gm, '```$2$5```')
         // Pre-formatted text
