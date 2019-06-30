@@ -45,7 +45,7 @@ J2M.prototype.to_markdown = function(str) {
         // Strikethrough
         .replace(/(\s+)-(\S+.*?\S)-(\s+)/g, '$1~~$2~~$3')
         // Code Block
-        .replace(/\{code(:([a-z]+))?([:|]?(title|borderStyle|borderColor|borderWidth|bgColor|titleBGColor)=.+?)*\}([^]*)\{code\}/gm, '```$2$5```')
+        .replace(/\{code(:([a-z]+))?([:|]?(title|borderStyle|borderColor|borderWidth|bgColor|titleBGColor)=.+?)*\}([^]*?)\n?\{code\}/gm, '```$2$5\n```')
         // Pre-formatted text
         .replace(/{noformat}/g, '```')
         // Un-named Links

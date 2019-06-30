@@ -55,6 +55,10 @@ describe('to_markdown', function() {
         var markdown = j2m.to_markdown("{code:title=Foo.java}\nclass Foo {\n  public static void main() {\n  }\n}\n{code}");
         markdown.should.eql("```\nclass Foo {\n  public static void main() {\n  }\n}\n```")
     });
+    it('should convert code without line feed before the end code block', function() {
+        var markdown = j2m.to_markdown("{code:java}\njava code{code}");
+        markdown.should.eql("```java\njava code\n```")
+    });
     it('should convert fully configured code block', function() {
         var markdown = j2m.to_markdown(
             "{code:xml|title=My Title|borderStyle=dashed|borderColor=#ccc|titleBGColor=#F7D6C1|bgColor=#FFFFCE}"
