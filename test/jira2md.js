@@ -137,4 +137,8 @@ describe('to_markdown', function() {
         var markdown = j2m.to_markdown("A text with{color:blue} blue \n lines {color} is not necessary.");
         markdown.should.eql("A text with blue \n lines  is not necessary.");
     });
+    it('should not recognize inserts across multiple table cells', function() {
+        var markdown = j2m.to_markdown('||Heading 1||Heading 2||\n|Col+A1|Col+A2|');
+        markdown.should.eql('\n|Heading 1|Heading 2|\n| --- | --- |\n|Col+A1|Col+A2|');
+    });
 });

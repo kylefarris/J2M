@@ -22,3 +22,7 @@ This file is a manually maintained list of changes for each release. Feel free t
 ## 2.0.3 (2017-09-15)
 
 * Fixed a bug where dashes were being converted to strike throughs in situations they shouldn't have been. Before the fix, the string "ABC-1234 and DEF-5678" would have been converted to (HTML): "ABC<del>1234 and DEV</del>5678" or (Markdown): "ABC~~1234 and DEV~~5678" which is invalid. After the fix, no strikethroughs will be added to the converted output unless there is at least 1 space before the first dash (or double tilde) and after the last dash (or double tilde).
+
+## 2.1.1 (2020-04-08)
+
+* Fixed insertions (+) being converted to tags across table cells. Before the fix, table rows such as "|some+string|something+else|" would have been converted to "|some<ins>string|something</ins>else|". After the fix, insertions are not converted if they are both inside a different table cell (both + characters are delimited by pipe characters). 

@@ -66,8 +66,15 @@ J2M.prototype.to_markdown = function(str) {
             return '\n' + singleBarred + '\n' + singleBarred.replace(/\|[^|]+/g, '| --- ');
         })
         // remove leading-space of table headers and rows
-        .replace(/^[ \t]*\|/gm, '|');
-
+        .replace(/^[ \t]*\|/gm, '|')
+        // remove unterminated inserts across table cells
+        .replace(/\|([^<]*)<ins>(?![^|]*<\/ins>)([^|]*)\|/g, function (_, preceding, following) {
+            return '|' + preceding + '+' + following + '|'
+        })
+        // remove unopened inserts across table cells
+        .replace(/\|(?<![^|]*<ins>)([^<]*)<\/ins>([^|]*)\|/g, function (_, preceding, following) {
+            return '|' + preceding + '+' + following + '|'
+        });
 };
 
 J2M.prototype.to_jira = function(str) {
